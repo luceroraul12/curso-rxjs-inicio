@@ -11,7 +11,6 @@ const intervalo$ = new Observable<number>(
         let contador: number = 0;
         const intervalo = setInterval(
             () => {
-                console.log(contador);
 
                 subs.next(contador++);
             }, 1000
@@ -27,7 +26,12 @@ const intervalo$ = new Observable<number>(
 
 
 const primerSubscription = intervalo$.subscribe(console.log);
+const segundaSubscription = intervalo$.subscribe(console.log);
+const terceraSubscription = intervalo$.subscribe(console.log);
 
+primerSubscription.add(segundaSubscription);
+segundaSubscription.add(terceraSubscription);
 setTimeout(() => {
     primerSubscription.unsubscribe();
+
 },5000);
